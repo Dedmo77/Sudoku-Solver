@@ -54,7 +54,6 @@ function shuffle(arr) {
   return arr;
 }
 
-// ── CSP solver ────────────────────────────────────────────────────────────────
 
 function getPeers(r, c) {
   const peers = new Set();
@@ -136,7 +135,7 @@ function cspBacktrack(grid, candidates, moves) {
   return false;
 }
 
-// Returns ordered list of [row, col, num] moves to solve the grid, or null
+
 function cspSolve(grid) {
   const copy = grid.map(r => [...r]);
   const candidates = buildCandidates(copy);
@@ -144,7 +143,7 @@ function cspSolve(grid) {
   return cspBacktrack(copy, candidates, moves) ? moves : null;
 }
 
-// ── Used for puzzle generation (needs shuffle, keeps existing API) ────────────
+
 function solveSudoku(grid) {
   const candidates = buildCandidates(grid);
 
@@ -170,7 +169,6 @@ function solveSudoku(grid) {
   return backtrack();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 
 function countSolutions(grid, limit = 2) {
   let count = 0;
