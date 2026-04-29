@@ -484,12 +484,19 @@ function useHint() {
   if (isBoardComplete()) setTimeout(winGame, 500);
 }
 
-// ── autoSolve: CSP computes move order, then animates them ───────────────────
+
 function autoSolve() {
   if (!state.gameActive) return;
 
-  const moves = cspSolve(state.board);
-  if (!moves) return; // unsolvable (shouldn't happen with valid puzzles)
+  const cleanBoard = state.board.map((row, r) =>
+    row.map((val, c) => {
+      if (state.given[r][c]) return val;
+      return val === state.solution[r][c] ? val : 0; 
+    })
+  );
+
+  const moves = cspSolve(cleanBoard);
+  if (!moves) return; 
 
   const speed = 30;
   moves.forEach(([row, col, num], i) => {
@@ -503,7 +510,7 @@ function autoSolve() {
     }, i * speed);
   });
 }
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 function updateProgress() {
   let filled = 0;
